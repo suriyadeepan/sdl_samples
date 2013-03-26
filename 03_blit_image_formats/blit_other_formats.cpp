@@ -6,8 +6,10 @@
 SDL_Surface* loadOptimizedImage(char* fileName)
 {
 
-	SDL_Surface* loadedImg = IMG_Load(fileName);
+	SDL_Surface* loadedImg = NULL;
 	SDL_Surface* optimizedImg = NULL;
+
+	loadedImg = IMG_Load(fileName);
 
 	if(loadedImg!=NULL)
 	{
@@ -37,15 +39,6 @@ int main(int argc, char *argv[])
 	// init SDL libs
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	// load bgImg
-	//bgImg = loadOptimizedImage("/home/rps/Pictures/SDL/bg-green.jpg");
-	bgImg = IMG_Load("/home/rps/Pictures/SDL/bg-green.jpg");
-
-	if(bgImg == NULL)
-	{
-		printf("\nbgImg is null!\n");
-		return -1;
-	}
 	// setup screen
 	screen= SDL_SetVideoMode( 640, 480, 32, SDL_SWSURFACE );
 
@@ -53,6 +46,15 @@ int main(int argc, char *argv[])
 
 	offset.x = 40;
 	offset.y = 70;
+
+	// load bgImg
+	bgImg = loadOptimizedImage("/home/rps/Pictures/SDL/bg-green.jpg");
+	//bgImg = IMG_Load("/home/rps/Pictures/SDL/bg-green.jpg");
+
+	if(bgImg == NULL){
+		printf("\nbgImg is null!\n");
+		return -1;
+	}
 
 	// blit image to screen
 	SDL_BlitSurface(bgImg,NULL,screen,&offset);

@@ -1,0 +1,16 @@
+
+
+---blit_other_formats.cpp---
+
+	Created by RPS Deepan
+		Tue - 26-03-2013 - 9:30 AM
+		
+	REF: 
+	 [http://lazyfoo.net/SDL_tutorials/lesson03/linux/index.php]
+	 [http://lazyfoo.net/SDL_tutorials/lesson03/linux/eclipse/index.php]
+
+	- Install "SDL_image-devel.x86_64" package	
+	- Add SDL_image library to the project
+	- Use of IMG_Load() method to load all image formats
+
+	
