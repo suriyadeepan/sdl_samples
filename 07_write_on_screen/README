@@ -9,6 +9,7 @@
 	 [http://www.libsdl.org/docs/html/guideinputkeyboard.html]
 	 
 
+	- use of SDL_EnableUNICODE(1);
 	- use of keyboard presses to dynamically
 		render msg and draw on screen
 	
