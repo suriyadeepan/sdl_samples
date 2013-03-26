@@ -3,14 +3,17 @@
 ---window_events.cpp---
 
 	Created by RPS Deepan
-		Tue - 26-03-2013 - 10:05 AM
+		Tue - 26-03-2013 - 10:30 AM
 		
 	REF: 
 	 [http://lazyfoo.net/SDL_tutorials/lesson04/index.php]
 	 
 
-	- 	
-	- 
-	- 
+	- methods => applySurface(), loadOptimizedImage()
+					init(), clean_up()	
+	
+	- Event handling by polling => SDL_PollEvent()
+	 
+	- Get key pressed => SDL_GetKeyName(event.key.keysym.sym) 
 
 	

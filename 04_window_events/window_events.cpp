@@ -8,7 +8,7 @@ const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 
 //the surfaces
-SDL_Surface *image = NULL;
+SDL_Surface *bgImg = NULL;
 SDL_Surface *screen = NULL;
 
 // event obj
@@ -83,7 +83,7 @@ bool init()
 void clean_up()
 {
     //Free the image
-    SDL_FreeSurface( image );
+    SDL_FreeSurface( bgImg );
 
     //Quit SDL
     SDL_Quit();
@@ -101,15 +101,15 @@ int main(int argc, char *argv[])
 	}
 
 	// load image
-	image = loadOptimizedImage("/home/rps/Pictures/SDL/bg-green.jpg");
+	bgImg = loadOptimizedImage("/home/rps/Pictures/SDL/bg-green.jpg");
 	//bgImg = IMG_Load("/home/rps/Pictures/SDL/bg-green.jpg");
 
-	if(image == NULL){
+	if(bgImg == NULL){
 		printf("\nbgImg is null!\n");
 		return -1;
 	}
 
-	applySurface(20,20,image,screen);
+	applySurface(20,20,bgImg,screen);
 
 	// update window
 	SDL_Flip(screen);
