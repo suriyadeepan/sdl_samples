@@ -1,0 +1,16 @@
+
+
+---ball_move_color_keyed.cpp---
+
+	Created by RPS Deepan
+		Tue - 26-03-2013 - 11:30 AM
+		
+	REF: 
+	 [http://lazyfoo.net/SDL_tutorials/lesson05/index.php]
+	 
+
+	- color keying 
+	- use of keyboard events (polling) to
+	   move the ball in the screen
+	
+	
