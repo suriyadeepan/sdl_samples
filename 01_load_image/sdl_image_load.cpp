@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 	bgSurf = SDL_SetVideoMode( 640, 480, 32, SDL_SWSURFACE );
 
 	//Load image
-	textImg = SDL_LoadBMP( "/home/rps/GAME_ENGINE/SDL/workspace/Images/im-in.bmp" );
+	textImg = SDL_LoadBMP( "/home/rps/GAME_ENGINE/SDL/workspace/01_load_image/im-in.bmp" );
 
 	if(textImg == NULL)
 	{
