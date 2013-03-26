@@ -1,0 +1,14 @@
+
+
+---write_on_screen.cpp---
+
+	Created by RPS Deepan
+		Tue - 26-03-2013 - 1:24 PM
+		
+	REF: 
+	 [http://www.libsdl.org/docs/html/guideinputkeyboard.html]
+	 
+
+	- use of keyboard presses to dynamically
+		render msg and draw on screen
+	

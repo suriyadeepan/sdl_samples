@@ -19,7 +19,11 @@ SDL_Event event;
 TTF_Font *font = NULL;
 
 //the color of the font
-SDL_Color textColor = { 0,0,0xFF };
+SDL_Color textColor = { 0,0,0};
+
+//text pos
+int textPosX=0;
+int textPosY=50;
 
 
 
@@ -99,6 +103,8 @@ bool init()
     	return false;
     }
 
+    SDL_EnableUNICODE(1);
+
 
     //Set the window caption
     SDL_WM_SetCaption( "Event testing", NULL );
@@ -111,7 +117,6 @@ bool init()
 void clean_up()
 {
     //Free the images
-    SDL_FreeSurface( bgImg );
     SDL_FreeSurface( message );
 
     // Quit TTF
@@ -121,6 +126,30 @@ void clean_up()
 
     //Quit SDL
     SDL_Quit();
+}
+
+void updateScreen(char ip[])
+{
+	//SDL_FillRect(screen,NULL,0xffffff);
+
+
+	// render text
+	message = TTF_RenderText_Solid(font,ip
+			,textColor);
+
+
+	if(message == NULL){
+		printf("\n Image (message) loaded is null!\n");
+
+	}
+
+
+	// blit rendered message to screen
+	 applySurface(textPosX,textPosY,message,screen);
+
+	// update window
+	SDL_Flip(screen);
+
 }
 
 
@@ -135,10 +164,6 @@ int main(int argc, char *argv[])
 
 	SDL_FillRect(screen,NULL,0xffffff);
 
-	// load image
-	//bgImg = loadOptimizedImage("/home/rps/Pictures/SDL/bg-red.bmp");
-
-
 	// load font
 	font = TTF_OpenFont( "/usr/share/fonts/liberation/"
 			"LiberationMono-Regular.ttf", 28 );
@@ -149,26 +174,29 @@ int main(int argc, char *argv[])
 			return -1;
 		}
 
-
-	// render text
-	message = TTF_RenderText_Solid(font,"Hey! I'm rendering TTF! Awesome!!!"
-			,textColor);
-
-
-	if(message == NULL){
-		printf("\n Image (message) loaded is null!\n");
-		return -1;
-	}
-
-
-	// blit rendered message to screen
-	 applySurface(50,50,message,screen);
-
 	// update window
 	SDL_Flip(screen);
 
 	while(1){
     	while(SDL_PollEvent(&event)){
+
+    		if(event.type == SDL_KEYDOWN)
+    		{
+    			char ip[1];
+    			ip[0]= (char)event.key.keysym.unicode;
+
+    			if(textPosX<600)
+    			 textPosX+=20;
+    			else
+    			{
+    				textPosX=10;
+    				textPosY+=30;
+    			}
+
+    			updateScreen(ip);
+    			printf("\nchar: %s\n",ip);
+    		}
+
 			if(event.type == SDL_QUIT)
 			{
 				goto the_end;
