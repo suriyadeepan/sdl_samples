@@ -1,6 +1,6 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-
+#include <SDL/SDL_ttf.h>
 
 //Screen attributes
 const int SCREEN_WIDTH = 640;
@@ -8,16 +8,21 @@ const int SCREEN_HEIGHT = 480;
 const int SCREEN_BPP = 32;
 
 //the surfaces
-SDL_Surface* bgImg = NULL;
 SDL_Surface* message = NULL;
 SDL_Surface* screen = NULL;
 
 // event obj
 SDL_Event event;
 
-// x,y values to denote ball pos
-int ballPosX = SCREEN_WIDTH/2;
-int ballPosY = SCREEN_HEIGHT/2;
+// Font - attributes
+//  the font that's going to be used
+TTF_Font *font = NULL;
+
+//the color of the font
+SDL_Color textColor = { 0,0,0xFF };
+
+
+
 
 void applySurface( int x, int y, SDL_Surface* src, SDL_Surface* dest )
 {
@@ -88,6 +93,12 @@ bool init()
         return false;
     }
 
+    //Initialize SDL_ttf
+    if( TTF_Init() == -1 ){
+    	return false;
+    }
+
+
     //Set the window caption
     SDL_WM_SetCaption( "Event testing", NULL );
 
@@ -102,22 +113,13 @@ void clean_up()
     SDL_FreeSurface( bgImg );
     SDL_FreeSurface( message );
 
+    // Quit TTF
+    TTF_Quit();
+
+    TTF_CloseFont(font);
+
     //Quit SDL
     SDL_Quit();
-}
-
-
-void updateBallPosition()
-{
-
-	SDL_FillRect(screen,NULL,0xff0000);
-
-	// blit objImg (ball) to screen
-	applySurface(ballPosX,ballPosY,message,screen);
-
-	// update window
-	SDL_Flip(screen);
-
 }
 
 
@@ -130,73 +132,45 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+	SDL_FillRect(screen,NULL,0xffffff);
+
 	// load image
-	bgImg = loadOptimizedImage("/home/rps/Pictures/SDL/bg-red.bmp");
-	message = loadOptimizedImage("/home/rps/Pictures/SDL/ball-blue.bmp");
+	//bgImg = loadOptimizedImage("/home/rps/Pictures/SDL/bg-red.bmp");
 
 
-	if(bgImg == NULL || message == NULL){
-		printf("\n Image loaded is null!\n");
+	// load font
+	font = TTF_OpenFont( "/usr/share/fonts/liberation/LiberationMono-Regular.ttf", 28 );
+
+	if(font == NULL)
+		{
+			printf("font is null");
+			return -1;
+		}
+
+
+	// render text
+	message = TTF_RenderText_Solid(font,"Hey! I'm rendering TTF! Awesome!!!",textColor);
+
+
+	if(message == NULL){
+		printf("\n Image (message) loaded is null!\n");
 		return -1;
 	}
 
-	// blit background img to screen
-	applySurface(0,0,bgImg,screen);
 
-	// blit objImg (ball) to screen
-	applySurface(ballPosX,ballPosY,message,screen);
+	// blit rendered message to screen
+	 applySurface(50,50,message,screen);
 
 	// update window
 	SDL_Flip(screen);
 
-	while(1)
-	{
-		while(SDL_PollEvent(&event))
-		{
-
-			if(event.type == SDL_KEYDOWN)
+	while(1){
+    	while(SDL_PollEvent(&event)){
+			if(event.type == SDL_QUIT)
 			{
-				switch (event.key.keysym.sym)
-				{
-				case SDLK_DOWN:
-					if(ballPosY<460)
-						ballPosY+=10;
-					updateBallPosition();
-					break;
-
-				case SDLK_UP:
-					if(ballPosY>20)
-						ballPosY-=10;
-					updateBallPosition();
-					break;
-
-				case SDLK_LEFT:
-					if(ballPosX>20)
-						ballPosX-=10;
-					updateBallPosition();
-					break;
-
-				case SDLK_RIGHT:
-					if(ballPosX<620)
-						ballPosX+=10;
-					updateBallPosition();
-					break;
-
-				default:
-
-					break;
-				}
-			}
-
-
-			else if(event.type == SDL_QUIT)
-			{
-
 				goto the_end;
 			}
-
-
-		}
+    	}
 	}
 
 	the_end:

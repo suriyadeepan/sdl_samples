@@ -1,0 +1,20 @@
+
+
+---write_text_on_img.cpp---
+
+	Created by RPS Deepan
+		Tue - 26-03-2013 - 12:30 AM
+		
+	REF: 
+	 [http://lazyfoo.net/SDL_tutorials/lesson07/index.php]
+	 [http://superuser.com/questions/221911/install-truetype-font-on-fedora-14]
+	 
+	 
+
+	- Use of TTF - True Type Font
+	- adding SDL_ttf library to project
+	- adding SDL_ttf.h header
+	- creating a font, rendering a text msg as
+		an image, blitting it to screen 
+	
+	
